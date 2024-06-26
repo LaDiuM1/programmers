@@ -2,7 +2,7 @@ package org.programmers.level1;
 
 public class Solution1 {
 
-    /**
+    /*
      * [PCCE 기출문제] 9번 / 이웃한 칸
      * <p>
      * 각 칸마다 색이 칠해진 2차원 격자 보드판이 있습니다.
@@ -11,7 +11,7 @@ public class Solution1 {
      * 고른 칸의 위치를 나타내는 두 정수 h, w가 주어질 때
      * board[h][w]와 이웃한 칸들 중 같은 색으로 칠해져 있는 칸의 개수를 return 하도록 solution 함수를 완성해 주세요.
      *
-     **/
+     */
 
     public int solution(String[][] board, int h, int w) {
 
