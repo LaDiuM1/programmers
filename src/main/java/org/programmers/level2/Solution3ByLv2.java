@@ -10,29 +10,64 @@ public class Solution3ByLv2 {
 
         int count = 0;
 
-        boolean beforeMinuteStatus = true;
-        boolean beforeHourStatus = true;
-
         for (int i = startTime.toSecondOfDay(); i <= endTime.toSecondOfDay(); i++) {
-            int second = i % 60;
-            int secondOfMinute = i % 3600;
-            int secondOfHour = i % 43200;
+            double secondDegree = getSecondDegree(i);
+            double minuteDegree = getMinuteDegree(i);
+            double hourDegree = getHourDegree(i);
 
-            double secondsDegree = 360.0 / (60.0 / second);
-            double minutesDegree = 360.0 / (3600.0 / secondOfMinute);
-            double hoursDegree = 360.0 / (43200.0 / secondOfHour);
+            double differenceMinute = getDegreeDifference(secondDegree, minuteDegree);
+            double differenceHour = getDegreeDifference(secondDegree, hourDegree);
 
-            boolean checkNegativeMinutes = secondsDegree - minutesDegree < 0;
-            boolean checkNegativeHours = secondsDegree - hoursDegree < 0;
+            boolean checkMinuteAlarm = false;
+            boolean checkHourAlarm = false;
 
-            if ((beforeMinuteStatus && !checkNegativeMinutes) || (beforeHourStatus && !checkNegativeHours)) {
-                count++;
+            if (differenceMinute < 6 || differenceHour < 6) {
+                for(double j = 0; j < 1000; j++) {
+                    double millisecond =  i + j / 1000;
+
+                    secondDegree = getSecondDegree(millisecond);
+                    minuteDegree = getMinuteDegree(millisecond);
+                    hourDegree = getHourDegree(millisecond);
+
+                    differenceMinute = getDegreeDifference(secondDegree, minuteDegree);
+                    differenceHour = getDegreeDifference(secondDegree, hourDegree);
+
+                    if(secondDegree == 0 && minuteDegree == 0 && hourDegree == 0) {
+                        count++;
+                        break;
+                    }
+
+                    if (secondDegree >= minuteDegree && differenceMinute < 0.006 && !checkMinuteAlarm) {
+                        count++;
+                        checkMinuteAlarm = true;
+                    }
+
+                    if (secondDegree >= hourDegree && differenceHour < 0.006 && !checkHourAlarm) {
+                        count++;
+                        checkHourAlarm = true;
+                    }
+
+                    if (i == endTime.toSecondOfDay() || (checkMinuteAlarm && checkHourAlarm)) break;
+                }
             }
-
-            beforeMinuteStatus = checkNegativeMinutes;
-            beforeHourStatus = checkNegativeHours;
         }
 
         return count;
     }
+
+    static public double getDegreeDifference(double degree1, double degree2) {
+        double difference = Math.abs(degree1 - degree2);
+        return Math.min(difference, 360 - difference);
+    }
+
+    static public double getSecondDegree(double second) {
+        return 360 * ((second % 60) / 60);
+    }
+    static public double getMinuteDegree(double secondOfMinute) {
+        return 360 * ((secondOfMinute % 3600) / 3600);
+    }
+    static public double getHourDegree(double secondOfHour) {
+        return 360.0 * ((secondOfHour % 43200) / 43200);
+    }
+
 }

@@ -80,5 +80,38 @@ public class Solution3ByLv2Test {
         assertThat(result).isEqualTo(1);
     }
 
+    @Test
+    public void solution3byLv2Test5() {
+        Solution3ByLv2 solution3ByLv2 = new Solution3ByLv2();
+
+        int testParam1 = 11;
+        int testParam2 = 59;
+        int testParam3 = 30;
+        int testParam4 = 12;
+        int testParam5 = 0;
+        int testParam6 = 0;
+
+        int result = solution3ByLv2.solution(testParam1, testParam2, testParam3, testParam4, testParam5, testParam6);
+
+        assertThat(result).isEqualTo(1);
+    }
+    @Test
+    public void solution3byLv2Test6() {
+        Solution3ByLv2 solution3ByLv2 = new Solution3ByLv2();
+
+        int testParam1 = 1;
+        int testParam2 = 5;
+        int testParam3 = 5;
+        int testParam4 = 1;
+        int testParam5 = 5;
+        int testParam6 = 6;
+
+        int result = solution3ByLv2.solution(testParam1, testParam2, testParam3, testParam4, testParam5, testParam6);
+
+        assertThat(result).isEqualTo(2);
+    }
+
+
+
 
 }
