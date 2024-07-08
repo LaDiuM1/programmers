@@ -59,7 +59,6 @@ public class Solution3ByLv2 {
         double difference = Math.abs(degree1 - degree2);
         return Math.min(difference, 360 - difference);
     }
-
     static public double getSecondDegree(double second) {
         return 360 * ((second % 60) / 60);
     }
@@ -67,7 +66,7 @@ public class Solution3ByLv2 {
         return 360 * ((secondOfMinute % 3600) / 3600);
     }
     static public double getHourDegree(double secondOfHour) {
-        return 360.0 * ((secondOfHour % 43200) / 43200);
+        return 360 * ((secondOfHour % 43200) / 43200);
     }
 
 }
