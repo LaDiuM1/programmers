@@ -15,8 +15,10 @@ public class Solution2ByLv2 {
     }
 
     static public void getLowestFatigue(int[] picks, String[] minerals, int index, int currentFatigue) {
+        if(currentFatigue > lowestFatigue) return;
+
         if(index > minerals.length -1 || picks[0] == 0 && picks[1] == 0 && picks[2] == 0) {
-            lowestFatigue = Math.min(lowestFatigue, currentFatigue);
+            lowestFatigue = currentFatigue;
             return;
         }
 
@@ -28,10 +30,10 @@ public class Solution2ByLv2 {
             int originalFatigue = currentFatigue;
 
             for(int j = index; j < 5 + index; j++) {
-                if(j == minerals.length) break;
                 int mineralPoint = pointTable.get(minerals[j]);
                 int pickPoint = pointTable.get(pickName);
                 currentFatigue += Math.max(mineralPoint / pickPoint , 1);
+                if(j == minerals.length -1) break;
             }
 
             getLowestFatigue(picks, minerals, index + 5, currentFatigue);

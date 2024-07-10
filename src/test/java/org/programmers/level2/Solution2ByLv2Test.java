@@ -32,7 +32,7 @@ public class Solution2ByLv2Test {
     public void solution4Test() {
         Solution2ByLv2 solutionLv22 = new Solution2ByLv2();
 
-        int[] testParam1 = {1, 3, 2};
+        int[] testParam1 = {1, 3, 0};
         String[] testParam2 = {"diamond", "diamond", "diamond", "iron", "iron", "diamond", "iron", "stone"};
 
         int result = solutionLv22.solution(testParam1, testParam2);
@@ -71,6 +71,17 @@ public class Solution2ByLv2Test {
         int result = solutionLv22.solution(testParam1, testParam2);
 
         assertThat(result).isEqualTo(26);
+    }
+
+    @Test
+    public void solution4Test5() {
+        Solution2ByLv2 solutionLv22 = new Solution2ByLv2();
+
+        int[] testParam1 = {1, 3, 1};
+        String[] testParam2 = {"diamond", "stone", "diamond", "diamond", "diamond", "diamond", "diamond", "diamond", "diamond", "diamond", "diamond"};
+        int result = solutionLv22.solution(testParam1, testParam2);
+
+        assertThat(result).isEqualTo(31);
     }
 
 }
