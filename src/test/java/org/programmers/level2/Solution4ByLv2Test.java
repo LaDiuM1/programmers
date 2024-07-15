@@ -26,8 +26,19 @@ public class Solution4ByLv2Test {
         String[] testCase1 = {"SOOOL","XXXXO","OOOOO","OXXXX","OOOOE"};
 
         int result = solution4ByLv2.solution(testCase1);
+
+        assertThat(result).isEqualTo(16);
     }
 
+    @Test
+    public void solution4byLv2Test2() {
+        Solution4ByLv2 solution4ByLv2 = new Solution4ByLv2();
 
+        String[] testCase1 = {"SOOOO","OOOOO","OOOOO","OOOOL","OOOOE"};
+
+        int result = solution4ByLv2.solution(testCase1);
+
+        assertThat(result).isEqualTo(8);
+    }
 
 }
