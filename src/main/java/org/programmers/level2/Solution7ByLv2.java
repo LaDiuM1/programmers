@@ -34,7 +34,6 @@ public class Solution7ByLv2 {
      * 반복문 종료 시 최적 경로를 반환
      *
      *
-     * 큐에 추가해야 하는것은 현재 원판들의 위치와 이동해야될 순서인가? -- 맞다
      */
 
     //  n	result
@@ -42,13 +41,14 @@ public class Solution7ByLv2 {
 
     public class Disk {
         int diskNo;
+        int currentPosition;
         List<int[]> route;
         Stack<Disk>[] diskPositions;
 
-        Disk(int diskNo, List<int[]> route, Stack<Disk>[] diskPositions ) {
+        Disk(int diskNo, List<int[]> route, int currentPosition) {
             this.diskNo = diskNo;
             this.route = route;
-            this.diskPositions = diskPositions;
+            this.currentPosition = currentPosition;
         }
     }
 
@@ -62,7 +62,7 @@ public class Solution7ByLv2 {
             Stack<Disk> peg = new Stack<>();
             if (i == 0) {
                 for (int j = n; j > 0; j--) {
-                    Disk disk = new Disk(j, new ArrayList<>(), new Stack[3]);
+                    Disk disk = new Disk(j, new ArrayList<>(), 0);
                     peg.push(disk);
                 }
             }
@@ -73,7 +73,7 @@ public class Solution7ByLv2 {
         disk.diskPositions = pegs;
         queue.add(disk);
 
-        for(int i = n; i > 0; i++) {
+        for(int i = n; i > 0; i--) {
             bfs(i);
         }
 
@@ -83,34 +83,51 @@ public class Solution7ByLv2 {
     public void bfs(int goal) {
 
         while(!queue.isEmpty()) {
-            Disk nowDick = queue.poll();
-            Stack<Disk>[] pegsStatus = nowDick.diskPositions;
+            Disk nowDisk = queue.poll();
 
-            if(!pegsStatus[2].isEmpty() && pegsStatus[2].lastElement().diskNo == goal) {
-                optimalRoute = nowDick.route;
+            Stack<Disk>[] pegsStatus = nowDisk.diskPositions;
+            int currentPosition = nowDisk.currentPosition;
+
+            if(currentPosition == 2 && nowDisk.diskNo == goal) {
+                optimalRoute = nowDisk.route;
                 pegs = pegsStatus;
                 queue = new LinkedList<>();
-                queue.add(nowDick);
+                queue.add(nowDisk);
                 return;
             }
 
-            for(int i = 0; i < 3; i++) {
-                while(!pegsStatus[i].isEmpty()) {
-                    Disk nowDisk = pegsStatus[i].pop();
-                    for(int j = 0; j < 3; j++) {
-                        int nowDiskNo = nowDisk.diskNo;
-                        if(i != j && pegsStatus[j].isEmpty() || !pegsStatus[j].isEmpty() && pegsStatus[j].pop().diskNo < nowDiskNo) {
-                            Stack<Disk>[] newDiskPositions = Arrays.copyOf(pegsStatus, 3);
-                            LinkedList<int[]> newRoute = new LinkedList<>(nowDisk.route);
-                            Disk disk = new Disk(nowDiskNo, newRoute, newDiskPositions);
-                            newDiskPositions[j].push(disk);
-                            newRoute.add(new int[]{i, j});
-                            queue.add(disk);
-                        }
+            for (int i = 0; i < 3; i++) {
+                if (pegsStatus[i].isEmpty()) continue;
+                if(!nowDisk.route.isEmpty() && nowDisk.route.get(nowDisk.route.size() - 1)[1] - 1 == i) continue;
+                Disk moveDisk = pegsStatus[i].pop();
+                for (int j = 0; j < 3; j++) {
+                    int moveDiskNo = moveDisk.diskNo;
+                    if (i != j && (pegsStatus[j].isEmpty() || pegsStatus[j].lastElement().diskNo > moveDiskNo)) {
+                        Stack<Disk>[] newDiskPositions = copyPositions(pegsStatus);
+                        LinkedList<int[]> newRoute = new LinkedList<>(nowDisk.route);
+                        newRoute.add(new int[]{i + 1, j + 1});
+                        Disk disk = new Disk(moveDiskNo, newRoute, j);
+                        newDiskPositions[j].push(moveDisk);
+                        disk.diskPositions = newDiskPositions;
+                        disk.currentPosition = j;
+                        queue.add(disk);
                     }
                 }
+                pegsStatus[i].push(moveDisk);
             }
         }
+    }
+
+    public Stack<Disk>[] copyPositions(Stack<Disk>[] diskPositions) {
+        Stack<Disk>[] newDiskPositions = new Stack[3];
+
+        for(int i = 0; i < 3; i++) {
+            Stack<Disk> newStack = new Stack<>();
+            newStack.addAll(diskPositions[i]);
+            newDiskPositions[i] = newStack;
+        }
+
+        return newDiskPositions;
     }
 
 }
