@@ -25,9 +25,6 @@ public class Solution7ByLv2Test {
 
     @Test
     public void solution7byLv2Test1() {
-        //  n	result
-        //  2	{ {1,2}, {1,3}, {2,3} }
-
         Solution7ByLv2 solution7ByLv2 = new Solution7ByLv2();
 
         int testCase1 = 2;
@@ -48,22 +45,18 @@ public class Solution7ByLv2Test {
 
     @Test
     public void solution7byLv2Test2() {
-        //  n	result
-        //  2	{ {1,2}, {1,3}, {2,3} }
-
         Solution7ByLv2 solution7ByLv2 = new Solution7ByLv2();
 
-        int testCase1 = 3;
+        int testCase1 = 2;
 
         int[][] result = solution7ByLv2.solution(testCase1);
 
-//        int[][] then = { {1,2}, {1,3}, {2,3} };
+        int[][] then = { {1,2}, {1,3}, {2,3} };
 
-
-        for(int i = 0; i < result.length; i++) {
+        for(int i = 0; i < then.length; i++) {
             for(int j = 0; j < 2; j++) {
                 System.out.print(result[i][j] + " ");
-//                assertThat(result[i][j]).isEqualTo(then[i][j]);
+                assertThat(result[i][j]).isEqualTo(then[i][j]);
             }
             System.out.println();
         }
@@ -71,17 +64,11 @@ public class Solution7ByLv2Test {
 
     @Test
     public void solution7byLv2Test3() {
-        //  n	result
-        //  2	{ {1,2}, {1,3}, {2,3} }
-
         Solution7ByLv2 solution7ByLv2 = new Solution7ByLv2();
 
-        int testCase1 = 3;
+        int testCase1 = 15;
 
         int[][] result = solution7ByLv2.solution(testCase1);
-
-//        int[][] then = { {1,2}, {1,3}, {2,3} };
-
 
         for(int i = 0; i < result.length; i++) {
             for(int j = 0; j < 2; j++) {
@@ -90,6 +77,7 @@ public class Solution7ByLv2Test {
             }
             System.out.println();
         }
+        System.out.println("result.length = " + result.length);
     }
 
 

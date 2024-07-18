@@ -33,101 +33,88 @@ public class Solution7ByLv2 {
      * 매개변수의 내림차순으로 반복문 실행하여 각 반복자와 순서를 BFS 매개변수로 전달
      * 반복문 종료 시 최적 경로를 반환
      *
+     * -- 시간 초과 실패
+     *
+     * 1차 시도로 BFS를 이용하여 해결을 시도하였으나 정답은 출력되나 매개변수 갯수가 증가할 때마다 경우의 수가 기하급수적으로 증가하여
+     * 8부터 시간초과가 발생하였다. 그렇다면 이동 조건만 일치 여부 확인하여 모든 경우의 수를 확인하는 방법으로는 푸는 것 자체가
+     * 불가능해진다. 완전탐색이 아닌 문제가 정답에 이르는 과정을 분해하여 해결해야 할 것으로 보인다.
+     *
+     * 새로운 구상 시도.
+     * 첫번째 시도에서는 마지막 막대에 큰 원반부터 쌓이게 하는 것이 조건이었다.
+     * 하지만 큰 원반이 3번 막대에 도착하는 과정도 무수히 많은 작은 문제들을 해결해야 하므로
+     * 작은 문제부터 살펴보도록 하자.
+     *
+     * 1차적으로 큰 원반이 3번 막대로 이동하기 위해서는 나머지 원반이 원반의 현재 위치와 목표 위치 사이에 모두 있어야 한다.
+     * 그렇다면 그 다음으로 큰 원반이 보조 막대 위치로 이동해야 하며 이를 위해서는 또 다음 크기의 원반들이 보조 막대로 이동하여야 한다.
+     * 그렇다면 이동이 가능해 질 때까지 보조 막대의 위치를 찾은 뒤 실제 이동이 가능 할 때 해당 위치로 이동해야한다.
+     *
+     * 상기를 간략하게 정리하자면 아래와 같이 된다.
+     * 현재 번호가 목표 위치로 갈수 있는지 검사, 갈 수 있다면 이동 시키고 다음 번호도 목표 위치로 이동
+     * 없다면 다음 번호를 보조 위치로 이동(현재 위치와 목표 위치가 아닌 위치)
+     *
+     * 상기 구상은 재귀적인 작업이 필요해보인다. 문제를 작은 문제로 분해했으니 코드로 구현하면 된다.
+     * 구현 구상을 새로 해보자.
+     *
+     * 재귀적 해결 구상
+     * 재귀 함수를 선언하여 현재 번호가 목표 위치로 갈 수 있는지 검사하는 while 반복 선언
+     * 갈 수 있다면 원판을 이동, 이후 다음 원판까지 동일한 목표를 재귀에 전달
+     * 갈 수 없다면 보조 위치를 목표 위치로 전달하여 재귀 호출
+     *
+     * 현재 위치가 목표 위치에 도달할 때까지 반복
+     * 원반 번호가 1일 시 재귀 종료
      *
      */
 
-    //  n	result
-    //  2	{ {1,2}, {1,3}, {2,3} }
+    Stack<Integer>[] pegs = new Stack[3];
+    Map<Integer, Integer> diskPositionMap = new HashMap<>();
+    List<int[]> route = new ArrayList<>();
 
-    public class Disk {
-        int diskNo;
-        int currentPosition;
-        List<int[]> route;
-        Stack<Disk>[] diskPositions;
+    public int[][] solution(int n) {
+        initialize(n);
 
-        Disk(int diskNo, List<int[]> route, int currentPosition) {
-            this.diskNo = diskNo;
-            this.route = route;
-            this.currentPosition = currentPosition;
+        hanoiDfs(n, 2);
+
+        return route.toArray(int[][]::new);
+    }
+
+    public void hanoiDfs(int diskNo, int target) {
+        if(diskNo == 1) {
+            updateStatus(diskNo, target);
+            return;
+        }
+
+        while(true) {
+            int nowPosition = diskPositionMap.get(diskNo);
+            if(nowPosition == target) return;
+
+            if((!pegs[nowPosition].isEmpty() && pegs[nowPosition].lastElement() == diskNo)
+                    && (pegs[target].isEmpty() || pegs[target].lastElement() > diskNo)) {
+                updateStatus(diskNo, target);
+                hanoiDfs(diskNo -1, target);
+            } else {
+                int sub = 3 - (nowPosition + target);
+                hanoiDfs(diskNo -1, sub);
+            }
         }
     }
 
-    Stack<Disk>[] pegs = new Stack[3];
-    List<int[]> optimalRoute;
-    Queue<Disk> queue = new LinkedList<>();
+    public void updateStatus(int diskNo, int target) {
+        Integer nowPosition = diskPositionMap.get(diskNo);
+        pegs[target].push(pegs[nowPosition].pop());
+        diskPositionMap.put(diskNo, target);
+        route.add(new int[]{nowPosition + 1, target + 1});
+    }
 
-    public int[][] solution(int n) {
-
+    public void initialize(int n) {
         for(int i = 0; i < 3; i++) {
-            Stack<Disk> peg = new Stack<>();
+            Stack<Integer> peg = new Stack<>();
             if (i == 0) {
                 for (int j = n; j > 0; j--) {
-                    Disk disk = new Disk(j, new ArrayList<>(), 0);
-                    peg.push(disk);
+                    diskPositionMap.put(j, i);
+                    peg.push(j);
                 }
             }
             pegs[i] = peg;
         }
-
-        Disk disk = pegs[0].lastElement();
-        disk.diskPositions = pegs;
-        queue.add(disk);
-
-        for(int i = n; i > 0; i--) {
-            bfs(i);
-        }
-
-        return optimalRoute.toArray(int[][]::new);
     }
-
-    public void bfs(int goal) {
-
-        while(!queue.isEmpty()) {
-            Disk nowDisk = queue.poll();
-
-            Stack<Disk>[] pegsStatus = nowDisk.diskPositions;
-            int currentPosition = nowDisk.currentPosition;
-
-            if(currentPosition == 2 && nowDisk.diskNo == goal) {
-                optimalRoute = nowDisk.route;
-                pegs = pegsStatus;
-                queue = new LinkedList<>();
-                queue.add(nowDisk);
-                return;
-            }
-
-            for (int i = 0; i < 3; i++) {
-                if (pegsStatus[i].isEmpty()) continue;
-                if(!nowDisk.route.isEmpty() && nowDisk.route.get(nowDisk.route.size() - 1)[1] - 1 == i) continue;
-                Disk moveDisk = pegsStatus[i].pop();
-                for (int j = 0; j < 3; j++) {
-                    int moveDiskNo = moveDisk.diskNo;
-                    if (i != j && (pegsStatus[j].isEmpty() || pegsStatus[j].lastElement().diskNo > moveDiskNo)) {
-                        Stack<Disk>[] newDiskPositions = copyPositions(pegsStatus);
-                        LinkedList<int[]> newRoute = new LinkedList<>(nowDisk.route);
-                        newRoute.add(new int[]{i + 1, j + 1});
-                        Disk disk = new Disk(moveDiskNo, newRoute, j);
-                        newDiskPositions[j].push(moveDisk);
-                        disk.diskPositions = newDiskPositions;
-                        disk.currentPosition = j;
-                        queue.add(disk);
-                    }
-                }
-                pegsStatus[i].push(moveDisk);
-            }
-        }
-    }
-
-    public Stack<Disk>[] copyPositions(Stack<Disk>[] diskPositions) {
-        Stack<Disk>[] newDiskPositions = new Stack[3];
-
-        for(int i = 0; i < 3; i++) {
-            Stack<Disk> newStack = new Stack<>();
-            newStack.addAll(diskPositions[i]);
-            newDiskPositions[i] = newStack;
-        }
-
-        return newDiskPositions;
-    }
-
 }
