@@ -2,6 +2,8 @@ package org.programmers.level2;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Solution8ByLv2Test {
@@ -85,7 +87,6 @@ public class Solution8ByLv2Test {
                 largeTestCase[i][j] = testCase1[i % originalRows][j % originalCols];
             }
         }
-
 
         long startTime = System.nanoTime();
         int result = solution8ByLv2.solution(largeTestCase);
