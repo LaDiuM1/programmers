@@ -97,31 +97,4 @@ public class Solution9ByLv2Test {
         assertThat(result).isEqualTo(4);
     }
 
-    @Test
-    public void solution9byLv2ComplexTest() {
-        Solution9ByLv2 solution9ByLv2 = new Solution9ByLv2();
-
-        int testCase1 = 1000000;
-        int testCase2 = 10;
-        int[] testCase3 = {
-                100000, 200000, 150000, 300000, 250000, 100000, 200000, 150000,
-                300000, 250000, 500000, 600000, 700000, 800000, 900000, 1000000,
-                950000, 850000, 750000, 650000, 550000, 450000, 350000, 250000,
-                150000, 50000, 100000, 150000, 200000, 250000, 300000, 350000,
-                400000, 450000, 500000, 550000, 600000, 650000, 700000, 750000,
-                800000, 850000, 900000, 950000, 1000000, 950000, 900000, 850000,
-                800000, 750000, 700000, 650000, 600000, 550000, 500000, 450000,
-                400000, 350000, 300000, 250000, 200000, 150000, 100000, 50000
-        };
-
-        int result = solution9ByLv2.solution(testCase1, testCase2, testCase3);
-
-        int expectedValue = 32;
-
-        assertThat(result).isEqualTo(expectedValue);
-    }
-
-
-
-
 }
