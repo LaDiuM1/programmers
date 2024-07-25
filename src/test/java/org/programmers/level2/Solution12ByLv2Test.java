@@ -21,7 +21,7 @@ public class Solution12ByLv2Test {
     */
 
     @Test
-    public void solution11byLv2Test1() {
+    public void solution12byLv2Test1() {
         String[][] testCase1 = {{"korean", "11:40", "30"}, {"english", "12:10", "20"}, {"math", "12:30", "40"}};
 
         Solution12ByLv2 solution12ByLv2 = new Solution12ByLv2();
@@ -36,7 +36,7 @@ public class Solution12ByLv2Test {
     }
 
     @Test
-    public void solution11byLv2Test2() {
+    public void solution12byLv2Test2() {
         String[][] testCase1 = {{"science", "12:40", "50"}, {"music", "12:20", "40"}, {"history", "14:00", "30"}, {"computer", "12:30", "100"}};
 
         Solution12ByLv2 solution12ByLv2 = new Solution12ByLv2();
