@@ -1,8 +1,5 @@
 package org.programmers.level2;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class Solution14ByLv2 {
 
     /**
