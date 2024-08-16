@@ -7,10 +7,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class Solution5ByLv3Test {
 
     /*
-    [https://school.programmers.co.kr/learn/courses/30/lessons/12987
+    [https://school.programmers.co.kr/learn/courses/30/lessons/12987]
     Summer/Winter Coding(~2018)
     숫자 게임
-
 
     xx 회사의 2xN명의 사원들은 N명씩 두 팀으로 나눠 숫자 게임을 하려고 합니다.
     두 개의 팀을 각각 A팀과 B팀이라고 하겠습니다. 숫자 게임의 규칙은 다음과 같습니다.
