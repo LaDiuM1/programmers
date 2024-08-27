@@ -1,5 +1,7 @@
 package org.programmers.level3;
 
+import org.programmers.Application;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -101,6 +103,18 @@ public class Solution16ByLv3 {
             graph.get(from).add(new Node(to, distance));
             graph.get(to).add(new Node(from, distance));
         }
+    }
+
+    public static void main(String[] args) {
+        Solution16ByLv3 application = new Solution16ByLv3();
+        int n = 6;
+        int s = 4;
+        int a = 6;
+        int b = 2;
+        int[][] fares = {{4, 1, 10}, {3, 5, 24}, {5, 6, 2}, {3, 1, 41}, {5, 1, 24}, {4, 6, 50}, {2, 4, 66}, {2, 3, 22}, {1, 6, 25}};
+
+        int result = application.solution(n, s, a, b, fares);
+        System.out.println("result = " + result + ", valid : " + (result == 82));
     }
 
 }
