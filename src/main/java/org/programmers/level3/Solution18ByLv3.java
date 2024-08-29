@@ -88,7 +88,7 @@ public class Solution18ByLv3 {
 
 
     public static void main(String[] args) {
-        Application application = new Application();
+        Solution18ByLv3 application = new Solution18ByLv3();
         int[][] scores = {{2,2},{1,4},{3,2},{3,2},{2,1}};
         int[][] scores2 = {{2, 2}, {2, 2}, {2, 3}, {3, 2}};
 
