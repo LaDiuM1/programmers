@@ -40,7 +40,7 @@ public class Solution4ByLv1 {
     }
 
     public static void main(String[] args) {
-        Application application = new Application();
+        Solution4ByLv1 application = new Solution4ByLv1();
         String[] players = {"mumu", "soe", "poe", "kai", "mine"};
         String[] callings = {"kai", "kai", "mine", "mine"};
 
