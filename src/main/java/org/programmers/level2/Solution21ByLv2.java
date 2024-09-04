@@ -1,7 +1,5 @@
 package org.programmers.level2;
 
-import org.programmers.Application;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
