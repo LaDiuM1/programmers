@@ -1,10 +1,18 @@
 package org.programmers.level1;
 
-import org.programmers.Application;
-
 import java.util.*;
 
 public class Solution3ByLv1 {
+
+    /**
+     * [https://school.programmers.co.kr/learn/courses/30/lessons/150370]
+     *
+     * 2023 KAKAO BLIND RECRUITMENT
+     * 개인정보 수집 유효기간
+     *
+     * 정렬 및 구현 기초 강화를 위한 기본 문제 풀이 진행
+     */
+
     static int YEAR_UNIT = 28 * 12;
     static int MONTH_UNIT = 28;
 
