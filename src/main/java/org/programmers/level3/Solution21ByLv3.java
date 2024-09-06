@@ -104,7 +104,7 @@ public class Solution21ByLv3 {
     }
 
     public static void main(String[] args) {
-        Application application = new Application();
+        Solution21ByLv3 application = new Solution21ByLv3();
         int n = 3;
         int m = 4;
         int x = 2;
