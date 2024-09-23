@@ -8,6 +8,7 @@ import java.util.Arrays;
 public class Solution6ByGold4 {
 
     /**
+
      [https://www.acmicpc.net/problem/14500]
      삼성 SW 역량 테스트 기출 문제
      테트로미노
