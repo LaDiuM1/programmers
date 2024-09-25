@@ -40,3 +40,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+src/main/java/org/programmers/Main.java
+src/main/java/org/programmers/Test.java
+src/main/java/org/programmers/Application.java
