@@ -67,7 +67,7 @@ public class Solution23ByLv2 {
     }
 
     public static void main(String[] args) {
-        Application application = new Application();
+        Solution23ByLv2 application = new Solution23ByLv2();
 
         int[] diffs2 = {1, 328, 467, 209, 54};
         int[] times2 = {2, 7, 1, 4, 3};
