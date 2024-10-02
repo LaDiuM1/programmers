@@ -66,7 +66,7 @@ public class Solution24ByLv2 {
     }
 
     public static void main(String[] args) {
-        Application application = new Application();
+        Solution24ByLv2 application = new Solution24ByLv2();
 
         int[][] points = {{3, 2}, {6, 4}, {4, 7}, {1, 4}};
         int[][] routes = {{4, 2}, {1, 3}, {2, 4}};
