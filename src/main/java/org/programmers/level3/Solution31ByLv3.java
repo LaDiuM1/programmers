@@ -85,7 +85,7 @@ public class Solution31ByLv3 {
     }
 
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        Solution31ByLv3 solution = new Solution31ByLv3();
 
         long[] numbers = {7, 42, 5};
         System.out.println(Arrays.toString(solution.solution(numbers)));
